@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "task-management-api"
+version = "0.1.0"
+description = "A beginner-friendly Task Management REST API workshop project."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "psycopg[binary]>=3.2,<4.0",
+    "psycopg-pool>=3.2,<4.0",
+    "pydantic-settings>=2.6,<3.0",
+    "uvicorn[standard]>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx>=0.27,<1.0",
+    "pytest>=8.3,<9.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
