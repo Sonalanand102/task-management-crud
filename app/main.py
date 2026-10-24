@@ -11,6 +11,8 @@ from app.database import create_connection_pool
 from app.exceptions import DatabaseOperationError, TaskNotFoundError
 from app.routes.tasks import router as tasks_router
 
+from google import genai
+client = genai.Client()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -66,3 +68,23 @@ def health_check() -> dict[str, str]:
 
 
 app.include_router(tasks_router)
+
+@app.post("/llm")
+def llm_call(input) -> str:
+
+    interaction = client.interactions.create(
+        model="gemini-3.8-flash",
+        input=input
+    )
+
+    return interaction.output_text
+
+
+
+    
+
+
+
+
+
+
